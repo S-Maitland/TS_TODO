@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { ITask } from './interfaces';
 import TodoTask from './Components/todoTask';
+import { v4 as uuidv4 } from 'uuid';
 
 const App = () => {
 
@@ -18,15 +19,16 @@ const App = () => {
   }
 
   const addTask = (): void => {
-    const newTask = { taskName: task, taskDeadline: deadline };
+    let uuid = uuidv4();
+    const newTask = {taskId: uuid, taskName: task, taskDeadline: deadline };
     setTodoList([...todoList, newTask]);
     setTask("")
     setDeadline(0)
   }
 
-  const completeTask = (taskNameToDelete: string): void => {
+  const completeTask = (taskIdToDelete: string): void => {
     setTodoList(todoList.filter((task) => {
-      return task.taskName !== taskNameToDelete
+      return task.taskId !== taskIdToDelete
     }))
   };
 
